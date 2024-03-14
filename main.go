@@ -18,13 +18,12 @@ func main() {
 		log.WithError(err).Error("Fail to initialize configuration")
 		os.Exit(1)
 	}
+	h := Handler{gitToken: cfg.GitToken}
 
 	log.Info("Initializing routes")
 	router := handlers.NewRouter(log)
 	router.HandleFunc("/ping", pongHandler)
-	// Initialize web server and configure the following routes:
-	// GET /repos
-	// GET /stats
+	router.HandleFunc("/repos", h.publicRepositoryHandler)
 
 	log = log.WithField("port", cfg.Port)
 	log.Info("Listening...")

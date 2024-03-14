@@ -6,7 +6,8 @@ import (
 )
 
 type Config struct {
-	Port int `envconfig:"PORT" default:"5000"`
+	Port     int    `envconfig:"PORT" default:"5000"`
+	GitToken string `envconfig:"GIT_TOKEN" required:"true"`
 }
 
 func newConfig() (*Config, error) {
